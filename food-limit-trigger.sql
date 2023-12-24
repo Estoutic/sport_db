@@ -25,5 +25,3 @@ CREATE TRIGGER before_update_nutrition
 BEFORE UPDATE ON nutrition
 FOR EACH ROW
 EXECUTE FUNCTION check_meal_limit();
-
-

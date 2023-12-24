@@ -4,10 +4,17 @@ INSERT INTO roles (role_name) VALUES
 ('User'),  -- Роль для обычного пользователя
 ('Trainer'); -- Роль для тренера
 
--- Вызов процедуры для вставки пользователей
-CALL register_user('admin@mail.ru', 'hashed_password_admin', 'Администратор', 'М', '1990-01-01', 1);
-CALL register_user('user@mail.ru', 'hashed_password_user', 'Обычный пользователь', 'Ж', '1995-05-10', 2);
-CALL register_user('trainer@mail.ru', 'hashed_password_trainer', 'Тренер', 'М', '1988-08-15', 3);
+-- Вставка данных в таблицу "Users"
+INSERT INTO users (username, password_hash, role_id) VALUES
+('admin@mail.ru', 'hashed_password_admin', 1),
+('user@mail.ru', 'hashed_password_user', 2),
+('trainer@mail.ru', 'hashed_password_trainer', 3);
+
+-- Вставка данных в таблицу "Athletes"
+INSERT INTO athletes (name, gender, birthdate, user_id) VALUES
+('Администратор', 'М', '1990-01-01', 1),
+('Обычный пользователь', 'Ж', '1995-05-10', 2),
+('Тренер', 'М', '1988-08-15', 3);
 
 -- Заполнение таблицы "Nutrition" 
 INSERT INTO nutrition (athlete_id, date, meal_type, calories, protein, fats, carbohydrates) VALUES

@@ -9,24 +9,19 @@ AS $$
 DECLARE
     new_user_id INT;
 BEGIN
-    -- Начало транзакции
-    BEGIN
-        -- Вставка в таблицу "Users"
-        INSERT INTO users (username, password_hash)
-        VALUES (p_username, p_password_hash)
-        RETURNING user_id INTO new_user_id;
+    -- Вставка в таблицу "Users"
+    INSERT INTO users (username, password_hash)
+    VALUES (p_username, p_password_hash)
+    RETURNING user_id INTO new_user_id;
 
-        -- Вставка в таблицу "Athletes"
-        INSERT INTO athletes (user_id, name, gender, birthdate)
-        VALUES (new_user_id, p_name, p_gender, p_birthdate);
+    -- Вставка в таблицу "Athletes"
+    INSERT INTO athletes (user_id, name, gender, birthdate)
+    VALUES (new_user_id, p_name, p_gender, p_birthdate);
 
-        -- Если все успешно, фиксация транзакции
-        COMMIT;
-    EXCEPTION
+EXCEPTION
+    WHEN OTHERS THEN
         -- В случае ошибки, откат транзакции
-        WHEN OTHERS THEN
-            ROLLBACK;
-            RAISE;
-    END;
+        ROLLBACK;
+        RAISE;
 END;
 $$ LANGUAGE plpgsql;
