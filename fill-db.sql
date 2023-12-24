@@ -6,9 +6,9 @@ INSERT INTO roles (role_name) VALUES
 
 -- Вставка данных в таблицу "Users"
 INSERT INTO users (username, password_hash, role_id, contact_info) VALUES
-    ('ВАСЯ', 'hashed_password_admin', 1, ROW('admin@example.com', '123-456-7890')),
-    ('ПЕТЯ', 'hashed_password_user', 2, ROW('user@example.com', '987-654-3210')),
-    ('КСЮША', 'hashed_password_trainer', 3, ROW('trainer@example.com', '555-555-5555'));
+    ('ВАСЯ',  crypt('hashed_password_admin', gen_salt('bf')), 1, ROW('admin@example.com', '123-456-7890')),
+    ('ПЕТЯ', crypt('hashed_password_user', gen_salt('bf')) , 2, ROW('user@example.com', '987-654-3210')),
+    ('КСЮША', crypt('hashed_password_trainer', gen_salt('bf')) , 3, ROW('trainer@example.com', '555-555-5555'));
 
 -- Вставка данных в таблицу "Athletes"
 INSERT INTO athletes (name, gender, birthdate, user_id) VALUES

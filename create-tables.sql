@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
 -- Создание таблицы "Roles"
 CREATE TABLE roles (
     role_id SERIAL PRIMARY KEY,
@@ -88,3 +90,8 @@ CREATE TABLE endurance_tests (
     distance DECIMAL(5,2),
     duration INT NOT NULL
 );
+
+CREATE INDEX idx_athletes_name ON athletes(name);
+
+CREATE INDEX idx_athletes_id ON athletes(athlete_id);
+
