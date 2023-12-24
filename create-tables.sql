@@ -4,12 +4,19 @@ CREATE TABLE roles (
     role_name VARCHAR(50) UNIQUE NOT NULL
 );
 
--- Создание таблицы "Users"
+-- Создание типа данных "ContactInfo"
+CREATE TYPE ContactInfo AS (
+    email VARCHAR(100),
+    phone VARCHAR(15)
+);
+
+-- Создание таблицы "Users" с полем "contact_info"
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    role_id INT REFERENCES roles(role_id) ON DELETE SET NULL -- Связь с таблицей Roles
+    role_id INT REFERENCES roles(role_id) ON DELETE SET NULL,
+    contact_info ContactInfo
 );
 
 -- Создание таблицы "Athletes"
